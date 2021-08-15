@@ -1,0 +1,95 @@
+    <div class="mt-4">
+        <h3>
+            Khóa học của tui
+        </h3>
+
+    <table class="table mt-4 table-light">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tên khóa học</th>
+            <th scope="col">Trình độ</th>
+            <th scope="col">Thời gian tạo</th>
+            <th scope="col" colspan="2">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each course}}
+        <tr>
+            {{!-- //truyen danh sach vao --}}
+            <th scope="row">{{sum @index 1}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.level}}</td>
+            <td>{{this.createdAt}}</td>
+
+            <td> 
+                {{!-- //Them khoa id vo de xoa q doi tuong --}}
+                <a href="/courses/{{this._id}}/edit" class="btn btn-link">Sửa</a>
+                {{!-- //truyền dữ liệu id vào xóa --}}
+                <a href="" class="btn btn-link" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-course">Xóa</a>
+            </td>
+        </tr>
+        
+        {{/each}}
+    </tbody>
+    </table>
+
+    </div>
+
+    {{!-- nút hộp thoại xóa hay không --}}
+    <div class="modal fade" id="delete-course" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Phần mà bạn muốn xóa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn có chắc muốn xóa hay không ?</p>
+      </div>
+      <div class="modal-footer">
+        {{!-- <button type="button" class="btn btn-success" data-dismiss="modal">Delete</button> --}}
+        <button id="btn-delete-course" type="button" class="btn btn-danger">Delete</button>
+        {{!-- thêm id="btn-delete-course" vào để thực hiện xóa --}}
+        <button  type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ {{!-- --------Form - hidden - delete--------------- --}}
+ {{!-- Mục đích là submit lên đc cái /courses/{{course._id}} này --}}
+  {{!-- <form name="delete-form" method="post" action="/courses/{{course._id}}?_method=DELETE"></form> --}}
+  <form name="delete-form" method="post"></form>
+{{!-- //javascript --}}
+<script>
+        document.addEventListener('DOMContentLoaded',function(){
+            //{gán biến phạm vi ngoài nên ta có thể lấy đc
+           var courseId;
+           //lưu biến form ở trên Khai
+           var deleteForm = document.forms['delete-form']
+                //Khi domcont show thi ta se click (ta se lay ra dc cai id cua no de xoa)
+            $('#delete-course').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            //Lấy gán biến id để thực hiện thao tác xóa
+            //var id = button.data('id')  
+            courseId = button.data('id')
+            });
+            //Khai báo biến để lấy docment xóa
+            var btndeletecourse = document.getElementById('btn-delete-course');
+        //Kiểm tra nó có lấy documment đc khong
+             btndeletecourse.onclick = function(){
+            //Ta set lại attribiul của deleteForm này = đúng url mà ta mong muốn
+              // alert(courseId)
+               //Ta sẽ lấy đc cái id và đường dẫn xóa với phongw thức delete
+               deleteForm.action = '/courses/'+courseId+'?_method=DELETE';
+               //Sau khi thay đổi ta sẽ submit cái form, vào ?method=delete và nó sẽ
+               //đi đến controller của ta
+               deleteForm.submit()
+             }
+            
+        });
+        
+</script>

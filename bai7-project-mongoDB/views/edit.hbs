@@ -1,0 +1,42 @@
+<div class="mt-4">
+        {{!-- <div class="row"> --}}
+            <h3>Cập nhập Khóa Học</h3>
+            {{!-- //url de chinh sua --}}
+    <form  class="mt-4" method="post" action="/courses/{{course._id}}?_method=PUT" enctype="multipart/form-data">
+
+        <div class="form-group">
+        <label for="name">Tên khóa học</label>
+        <input type="name" class="form-control" id="name"  value="{{course.name}}" placeholder="enter name" name="name">
+        {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your course with anyone else.</small> --}}
+    </div>
+
+    <div class="form-group">
+        <label for="desc">Thông tin khóa học</label>
+        <input type="desc" class="form-control" id="desc" value="{{course.desc}}" placeholder="enter course" name="desc">
+        {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your course with anyone else.</small> --}}
+    </div>
+
+
+    <div class="form-group">
+        <label for="videoId">Video khóa học</label>
+        <input type="videoId" class="form-control" id="videoId" value="{{course.videoId}}" placeholder="enter video" name="videoId">
+        {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your course with anyone else.</small> --}}
+    </div>
+
+    <div class="form-group">
+        <label for="level">Level khóa học</label>
+        <input type="level" class="form-control" id="level" value="{{course.level}}" placeholder="enter level" name="level">
+        {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your course with anyone else.</small> --}}
+    </div>
+    
+     <div class="form-group">
+    <label for="file">Picture file</label>
+    {{!-- <input type="file" class="form-control" id="file" value="{{course.img}}" placeholder="enter level" name="img"> --}}
+    <input type="file" class="form-control" id="file" placeholder="enter level" name="img">
+    {{!-- <small id="emailHelp" class="form-text text-muted">We'll never share your course with anyone else.</small> --}}
+  </div>
+
+    <button type="submit" class="btn btn-primary">Update thông tin</button>
+    </form>
+    {{!-- </div> --}}
+</div>
